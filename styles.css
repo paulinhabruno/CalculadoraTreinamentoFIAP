@@ -1,0 +1,69 @@
+body{
+    width: 100vw; /* v de view e w de width*/
+    height: 100vh; /* v de view e h de heigth*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+:root{  /* tudo que definir aqui vai valer para todo css, na raiz do documento*/
+    --primaria: #ed145b;
+    --secundaria: #9090f6;
+}
+
+*{  /* quando coloca * seleciona tudo*/
+    box-sizing: border-box;  /* calcula e centraliza tudo*/
+}
+
+
+.calculadora{
+    width: 450px;
+    height: 600px;
+    padding: 50px;  /* margim interna*/
+   
+    background-color: var(--primaria);
+    border-radius: 50px;
+    box-shadow: 0px 4px 10px #000000FF; /* Não precisa separar por vírgulas, apenas espaços - Para colocar transparência insere dois últimos dígitos*/
+}
+
+.display{
+    width: 100%;
+    height: 70px;
+    padding: 15px;
+    text-align: right;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    background-color: #fff;
+    border-radius: 50px;
+    font-size: 36px;
+    box-shadow: 0px 4px 10px #000000FF;
+
+}
+
+button{ 
+    width: 65px; 
+    height: 65px;
+
+    background-color: #fff;
+    border-radius: 50%; /* para colocar redondo coloca 50% do valor da altura e largura*/
+    font-size: 26px;
+    border: none;
+    cursor: pointer;  /* quando passa o cursor aparece mãozinha*/
+    transition: 0.4s; /* troca de transição do hover*/
+    
+    }
+
+    button:hover{  /* quando passa o mouse atribui essas mudanças*/
+        background-color: black;
+        color: white;
+    }
+
+    .conteiner-botoes{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;    /* separou os botões em colunas*/
+        gap: 10px; /* separou os botões*/
+        justify-items: center;
+    }
