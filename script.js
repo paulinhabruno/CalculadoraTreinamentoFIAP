@@ -10,6 +10,8 @@ let novoNumero = true;
 let operador;
 let numeroAnterior;
 
+
+
 function atualizarDisplay(texto) {
     if(novoNumero === true){
         display.textContent = texto;
@@ -28,26 +30,20 @@ teclasNumeros.forEach(function(tecla){
 const selecionarOperador =(event) => {
     novoNumero = true;
     operador = event.target.textContent;
-    numeroAnterior = display.textContent;
+    numeroAnterior = display.textContent.replace(",", ".");
 };
 
 operadores.forEach((operador) =>{
     operador.addEventListener("click", selecionarOperador);
 });
 
-const calcular = () => {
-    // verificamos se há um número em memória
-    if(operador !== undefined){
-        //pega o número do display e coloca em numeroAtual
-        const numeroAtual = display.textContent;
-        //seta novoNumero como verdadeiro para que possamos atualizar o display com o resultado
-        novoNumero = true;
-        //calculamos o resultado com a função eval
-        //o eval interpreta uma expresssão, executa e retorna o resultado
-        const resultado = eval(`${numeroAnterior}${operador}${numeroAtual}`);
-        //atualizamos o display com o resultado calculado
-        atualizarDisplay(resultado);
-        //resetamos o operador como indefinido (estado inicial)
+const calcular = () => {    // verificamos se há um número em memória
+    if(operador !== undefined){        //pega o número do display e coloca em numeroAtual
+        const numeroAtual = display.textContent.replace(",", ".");        //seta novoNumero como verdadeiro para que possamos atualizar o display com o resultado
+        novoNumero = true;        //calculamos o resultado com a função eval o eval interpreta uma expresssão, executa e retorna o resultado
+        let resultado = eval(`${numeroAnterior}${operador}${numeroAtual}`);
+        resultado = resultado.toFixed(2);       //atualizamos o display com o resultado calculado
+        atualizarDisplay(resultado.toString().replace(",", "."));        //resetamos o operador como indefinido (estado inicial) Vou alterado para String pq o eval não aceita o replace
         operador = undefined;
   }
 };
@@ -69,4 +65,28 @@ const limparCalculo = () => {
 
 document.querySelector("#limparCalculo").addEventListener("click", limparCalculo);
 
-// desafio: implementar o backspace, a vírgula e os números decimais
+const voltarNumero = () => {
+
+    display.textContent = display.textContent.slice(0, -1);
+  
+  };
+  document.querySelector("#backspace").addEventListener("click", voltarNumero);
+
+  //invertendo o sinal do número
+  const inverterSinal = () => {
+   display.textContent = display.textContent * -1;
+  };
+  document.querySelector("#inverter").addEventListener("click", inverterSinal);
+
+// vírgula e os números decimais
+
+const inserirDecimal = () => {
+    if(!display.textContent.includes(",")){
+        if(display.textContent.length > 0){
+            atualizarDisplay(",");
+        }else{
+            atualizarDisplay("0,")
+        }
+    }
+};
+document.querySelector("#decimal").addEventListener("click", inserirDecimal);
