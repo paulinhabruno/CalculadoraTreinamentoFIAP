@@ -67,3 +67,8 @@ button{
         gap: 10px; /* separou os botões*/
         justify-items: center;
     }
+
+    .historico{
+        height: 600px;
+        margin-left: 10px;
+    }

@@ -4,11 +4,13 @@ const teclasNumeros = document.querySelectorAll("[id*=tecla]"); // o * anterior 
 
 const operadores = document.querySelectorAll("[id*=operador]");
 
+const historico = document.querySelector(".historico");
 
 
 let novoNumero = true;
 let operador;
 let numeroAnterior;
+let calculoHistorico;
 
 
 
@@ -30,6 +32,7 @@ teclasNumeros.forEach(function(tecla){
 const selecionarOperador =(event) => {
     novoNumero = true;
     operador = event.target.textContent;
+    calculoHistorico = display.textContent + operador;
     numeroAnterior = display.textContent.replace(",", ".");
 };
 
@@ -39,16 +42,32 @@ operadores.forEach((operador) =>{
 
 const calcular = () => {    // verificamos se há um número em memória
     if(operador !== undefined){        //pega o número do display e coloca em numeroAtual
+        calculoHistorico += display.textContent;
         const numeroAtual = display.textContent.replace(",", ".");        //seta novoNumero como verdadeiro para que possamos atualizar o display com o resultado
         novoNumero = true;        //calculamos o resultado com a função eval o eval interpreta uma expresssão, executa e retorna o resultado
         let resultado = eval(`${numeroAnterior}${operador}${numeroAtual}`);
         if(resultado.toString().includes(".")) {
             resultado = resultado.toFixed(2);       //atualizamos o display com o resultado calculado
         }
+
+        calculoHistorico += "=" + resultado.toString().replace(",", ".");
+
         atualizarDisplay(resultado.toString().replace(",", "."));        //resetamos o operador como indefinido (estado inicial) Vou alterado para String pq o eval não aceita o replace
         operador = undefined;
-  }
+
+        incluirHistorico();
+    }  
+    
 };
+
+const incluirHistorico = () => {
+    const novoHistorico = document.createElement("p");
+    novoHistorico.textContent = calculoHistorico;
+
+    historico.appendChild(novoHistorico);
+
+    novoHistorico = undefined;
+}
 
 const ativarIgual = () => calcular();
 
@@ -92,3 +111,4 @@ const inserirDecimal = () => {
     }
 };
 document.querySelector("#decimal").addEventListener("click", inserirDecimal);
+
