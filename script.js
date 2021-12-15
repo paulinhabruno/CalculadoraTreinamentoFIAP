@@ -42,7 +42,9 @@ const calcular = () => {    // verificamos se há um número em memória
         const numeroAtual = display.textContent.replace(",", ".");        //seta novoNumero como verdadeiro para que possamos atualizar o display com o resultado
         novoNumero = true;        //calculamos o resultado com a função eval o eval interpreta uma expresssão, executa e retorna o resultado
         let resultado = eval(`${numeroAnterior}${operador}${numeroAtual}`);
-        resultado = resultado.toFixed(2);       //atualizamos o display com o resultado calculado
+        if(resultado.toString().includes(".")) {
+            resultado = resultado.toFixed(2);       //atualizamos o display com o resultado calculado
+        }
         atualizarDisplay(resultado.toString().replace(",", "."));        //resetamos o operador como indefinido (estado inicial) Vou alterado para String pq o eval não aceita o replace
         operador = undefined;
   }
